@@ -1,5 +1,9 @@
-const awesome = "Its going to be cool";
+let awesome = "This is going to be cool";
 
-document.getElementsByTagName(
-  "p"
-)[0].innerText = awesome;
+awesome.toLocaleLowerCase();
+let value = 1;
+
+let isCool = true;
+
+document.getElementsByTagName("p")[0].innerText =
+  awesome;
