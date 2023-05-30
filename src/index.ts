@@ -1,24 +1,21 @@
-function sum(a: number, b: number) {
-  return a + b;
+function printCoord(coords: { x: number; y: number }) {
+  console.log("The coordinate's x value is " + coords.x);
+  console.log("The coordinate's y value is " + coords.y);
 }
+printCoord({ x: 3, y: 7 });
 
-let result = sum(1, 2);
+function printName(obj: { first: string; last?: string }) {
+  // Error - might crash if 'obj.last' wasn't provided!
+  console.log(obj.last.toUpperCase());
 
-// console.log(result);
-
-function applyDiscount(
-  price: number,
-  giveToCharity?: boolean,
-  discountPercentage: number = 50
-): number {
-  let newPrice =
-    price - (price * discountPercentage) / 100;
-  if (giveToCharity) {
-    newPrice--;
+  if (obj.last !== undefined) {
+    // OK
+    console.log(obj.last.toUpperCase());
   }
-  return newPrice;
+
+  // A safe alternative using modern JavaScript syntax:
+  console.log(obj.last?.toUpperCase());
 }
-
-let finalPrice = applyDiscount(300);
-
-console.log("final", finalPrice);
+// Both OK
+printName({ first: "Bob" });
+printName({ first: "Alice", last: "Alisson" });
