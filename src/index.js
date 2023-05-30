@@ -1,14 +1,11 @@
-//objects
-function printCoords(coords) {
-    console.log("Lat", coords.lat);
-    console.log("Lng", coords.lng);
-}
-function getDistanceBetween(coords1, coords2) {
-    // return the distance betwen coords1 and coords2
-}
-var user = { firstName: "Codiku", lastName: "TheDev" };
-function displayUser(user) {
-    console.log("First name", user.firstName.toLocaleLowerCase());
-    console.log("Last name", user.lastName.toLocaleLowerCase());
-}
-displayUser(user);
+var persons = [
+    { name: "Alice", job: "Font-end Dev", age: 28 },
+    { name: "Bob", job: "Back-end dev", age: 44 },
+    { name: "Codiku", job: "Full Stack dev", age: 30 },
+];
+console.log(persons.map(function (person) { return "<li>".concat(person.name, "</li>"); }));
+var formatedList = persons.map(function (person) {
+    return "<li>Name : ".concat(person.name, " - Job : ").concat(person.job, "</li>");
+});
+var htmlList = "<ul> ".concat(formatedList.join(""), " </ul>");
+document.getElementById("app").innerHTML = htmlList;

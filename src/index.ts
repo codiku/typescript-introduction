@@ -1,28 +1,28 @@
-//objects
+const persons: {
+  name: string;
+  job: string;
+  age: number;
+}[] = [
+  { name: "Alice", job: "Font-end Dev", age: 28 },
+  { name: "Bob", job: "Back-end dev", age: 44 },
+  { name: "Codiku", job: "Full Stack dev", age: 30 },
+];
 
-function printCoords(coords: { lat: string; lng: string }) {
-  console.log("Lat", coords.lat);
-  console.log("Lng", coords.lng);
-}
+console.log(
+  persons.map((person) => `<li>${person.name}</li>`)
+);
 
-function getDistanceBetween(
-  coords1: { lat: string; lng: string },
-  coords2: { lat: string; lng: string }
-) {
-  // return the distance betwen coords1 and coords2
-}
+const formatedList: string[] = persons.map(
+  (person: {
+    name: string;
+    job: string;
+    age: number;
+  }): string => {
+    return `<li>Name : ${person.name} - Job : ${person.job}</li>`;
+  }
+);
+const htmlList: string = `<ul> ${formatedList.join(
+  ""
+)} </ul>`;
 
-const user = { firstName: "Codiku", lastName: "TheDev" };
-
-function displayUser(user: {
-  firstName: string;
-  lastName?: string;
-}) {
-  console.log(
-    "First name",
-    user.firstName.toLocaleLowerCase()
-  );
-  console.log("Last name", user.lastName.toLocaleLowerCase());
-}
-
-displayUser(user);
+document.getElementById("app")!.innerHTML = htmlList;
