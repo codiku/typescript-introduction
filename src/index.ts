@@ -1,21 +1,28 @@
-function printCoord(coords: { x: number; y: number }) {
-  console.log("The coordinate's x value is " + coords.x);
-  console.log("The coordinate's y value is " + coords.y);
+//objects
+
+function printCoords(coords: { lat: string; lng: string }) {
+  console.log("Lat", coords.lat);
+  console.log("Lng", coords.lng);
 }
-printCoord({ x: 3, y: 7 });
 
-function printName(obj: { first: string; last?: string }) {
-  // Error - might crash if 'obj.last' wasn't provided!
-  console.log(obj.last.toUpperCase());
-
-  if (obj.last !== undefined) {
-    // OK
-    console.log(obj.last.toUpperCase());
-  }
-
-  // A safe alternative using modern JavaScript syntax:
-  console.log(obj.last?.toUpperCase());
+function getDistanceBetween(
+  coords1: { lat: string; lng: string },
+  coords2: { lat: string; lng: string }
+) {
+  // return the distance betwen coords1 and coords2
 }
-// Both OK
-printName({ first: "Bob" });
-printName({ first: "Alice", last: "Alisson" });
+
+const user = { firstName: "Codiku", lastName: "TheDev" };
+
+function displayUser(user: {
+  firstName: string;
+  lastName?: string;
+}) {
+  console.log(
+    "First name",
+    user.firstName.toLocaleLowerCase()
+  );
+  console.log("Last name", user.lastName.toLocaleLowerCase());
+}
+
+displayUser(user);
