@@ -2,16 +2,12 @@ class BankAccount {
   private balance: number;
   private interestRate: number;
   private interestCeiling: number;
-  private favoriteAccounts: BankAccount[] = [];
-  private id: number;
 
   constructor(
-    id: number,
     balance: number,
     interestRate: number,
     interestCeiling: number
   ) {
-    this.id = id;
     this.balance = balance;
     this.interestRate = interestRate;
     this.interestCeiling = interestCeiling;
@@ -44,31 +40,7 @@ class BankAccount {
       return this.balance * this.interestRate;
     }
   }
-  addAccountToFavorites(account: BankAccount): void {
-    this.favoriteAccounts.push(account);
-  }
-
-  getFavoriteAccounts(): BankAccount[] {
-    return this.favoriteAccounts;
-  }
-
-  removeFavoriteAccountById(id: number): void {
-    const indexToRemove = this.favoriteAccounts.findIndex(
-      (account: BankAccount) => account.id === id
-    );
-    if (indexToRemove === -1) {
-      throw new Error("Account not found in favorites");
-    }
-    this.favoriteAccounts.splice(indexToRemove, 1);
-  }
 }
 
-const account1 = new BankAccount(1, 40000, 0.01, 50000);
-const account2 = new BankAccount(2, 100000, 0.01, 50000);
-account1.addAccountToFavorites(account2);
-
-account1.removeFavoriteAccountById(2);
-
-console.log(account1.getFavoriteAccounts().length);
-
-account1.removeFavoriteAccountById(2);
+const account1 = new BankAccount(40000, 0.01, 50000);
+const account2 = new BankAccount(100000, 0.01, 50000);
