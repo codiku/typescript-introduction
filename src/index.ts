@@ -1,1 +1,2 @@
-console.log("Hey this is a random number", Math.random());
+console.log("Random ", Math.random());
+console.log("hello");
