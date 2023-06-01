@@ -63,12 +63,29 @@ class BankAccount {
   }
 }
 
+// STORY
+
 const account1 = new BankAccount(1, 40000, 0.01, 50000);
 const account2 = new BankAccount(2, 100000, 0.01, 50000);
+
 account1.addAccountToFavorites(account2);
 
-account1.removeFavoriteAccountById(2);
+account1.transferMoney(
+  20000,
+  account1.getFavoriteAccounts()[0]
+);
 
-console.log(account1.getFavoriteAccounts().length);
+try {
+  account1.widthdraw(25000);
+} catch (err: unknown) {
+  console.log("Error : ", (err as Error).message);
+}
+
+console.log(
+  "Account 1 mensual interests ",
+  account1.getMensualInterest()
+);
+
+console.log("Balance account 1", account1.getBalance());
 
 account1.removeFavoriteAccountById(2);
