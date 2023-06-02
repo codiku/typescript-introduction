@@ -1,14 +1,13 @@
 // Unions
 
-let value: number | boolean | string;
+let value: number | string | boolean | [];
 
-value = "Hi";
+value = [];
 
 interface Square {
   kind: "square";
   size: number;
 }
-
 interface Circle {
   kind: "circle";
   radius: number;
@@ -18,7 +17,7 @@ let myShape: Square | Circle;
 
 myShape = {
   kind: "square",
-  size: 10,
+  size: 2,
 };
 
 function displayShape(shape: Square | Circle): void {
@@ -30,11 +29,10 @@ function displayShape(shape: Square | Circle): void {
   }
 }
 
-displayShape(myShape);
+// displayShape(myShape);
 
-let data: (number | string | boolean | (Square | Circle))[] =
-  [1, "Hi", true, myShape];
-
-if (typeof data[0] === "number") {
-  console.log("Indeed first element is a number !");
-}
+let array: (number | string | (Square | Circle))[] = [
+  myShape,
+  "hi",
+  2,
+];
