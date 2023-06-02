@@ -1,38 +1,69 @@
-// Unions
-
-let value: number | string | boolean | [];
-
-value = [];
-
-interface Square {
-  kind: "square";
-  size: number;
-}
-interface Circle {
-  kind: "circle";
-  radius: number;
+interface MovieInterface {
+  title: string;
+  year: number;
+  isForAdult: boolean;
 }
 
-let myShape: Square | Circle;
-
-myShape = {
-  kind: "square",
-  size: 2,
+interface MovieInterface {
+  director: string;
+}
+/*
+interface Vehicule {
+  maxSpeed: number;
+  brand: string;
+}
+*/
+type Vehicule = {
+  maxSpeed: number;
+  brand: string;
 };
 
-function displayShape(shape: Square | Circle): void {
-  console.log("Kind ", shape.kind);
-  if (shape.kind === "circle") {
-    console.log("Radius ", shape.radius);
-  } else {
-    console.log("Size ", shape.size);
-  }
+interface Car extends Vehicule {
+  horsePower: number;
 }
 
-// displayShape(myShape);
+interface Boat extends Vehicule {
+  sails: number;
+}
 
-let array: (number | string | (Square | Circle))[] = [
-  myShape,
-  "hi",
-  2,
-];
+type Bike = {
+  pedals: number;
+} & Vehicule;
+
+let car: Car = {
+  brand: "Mustang",
+  horsePower: 300,
+  maxSpeed: 250,
+};
+let boat: Boat = {
+  brand: "Apex",
+  sails: 3,
+  maxSpeed: 250,
+};
+
+type MovieType = {
+  title: string;
+  year: number;
+  isForAdult: boolean;
+};
+
+type MovieType = {
+  director: string;
+};
+
+let m1: MovieInterface;
+
+let m2: MovieType;
+
+m1 = {
+  isForAdult: true,
+  title: "Fight club",
+  year: 1999,
+  director: "David Fincher",
+};
+
+m2 = {
+  isForAdult: true,
+  title: "Fight club",
+  year: 1999,
+};
