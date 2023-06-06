@@ -1,22 +1,58 @@
-class User {
-  protected _name: string;
+interface Printable {
+  print: () => void;
+}
+
+interface Exportable {
+  export: () => void;
+}
+
+class Book implements Printable {
+  private _title: string;
+  private _author: string;
+
+  constructor(title: string, author: string) {
+    this._title = title;
+    this._author = author;
+  }
+  print() {
+    console.log(
+      "Title " + this._title,
+      " Author ",
+      this._author
+    );
+  }
+}
+
+class Magazine implements Printable {
+  private _name: string;
 
   constructor(name: string) {
     this._name = name;
   }
 
-  get name(): string {
-    return this._name;
+  print() {
+    console.log("Name " + this._name);
   }
 }
 
-class Admin extends User {
-  set name(n: string) {
-    this._name = n;
+class PDF implements Printable, Exportable {
+  private _name: string;
+  private size: number;
+  constructor(name: string) {
+    this._name = name;
+  }
+
+  print() {
+    console.log("Name " + this._name, " Size ", this.size);
+  }
+
+  export() {
+    console.log("exporting....");
   }
 }
-const user = new User("Codiku");
-user.name = "azeaze";
 
-const admin = new Admin("Robin");
-admin.name = "azeaze";
+const book = new Book(
+  "The Great Gatsby",
+  "F. Scott Fitzgerald"
+);
+const magazine = new Magazine("Time Magazine");
