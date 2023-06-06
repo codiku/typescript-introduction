@@ -1,58 +1,42 @@
-interface Printable {
-  print: () => void;
-}
+abstract class VideoGame {
+  protected name: string;
+  protected genre: string;
+  protected platform: string;
 
-interface Exportable {
-  export: () => void;
-}
-
-class Book implements Printable {
-  private _title: string;
-  private _author: string;
-
-  constructor(title: string, author: string) {
-    this._title = title;
-    this._author = author;
+  constructor(name: string, genre: string, platform: string) {
+    this.name = name;
+    this.genre = genre;
+    this.platform = platform;
   }
-  print() {
-    console.log(
-      "Title " + this._title,
-      " Author ",
-      this._author
-    );
+
+  abstract play(): void;
+
+  displayInfo() {
+    console.log(this.name, this.genre, this.platform);
   }
 }
 
-class Magazine implements Printable {
-  private _name: string;
-
-  constructor(name: string) {
-    this._name = name;
+class ArcadeGame extends VideoGame {
+  constructor(name: string, platform: string) {
+    super(name, "Arcade", platform);
   }
 
-  print() {
-    console.log("Name " + this._name);
+  play(): void {
+    console.log("Jump jump");
   }
 }
 
-class PDF implements Printable, Exportable {
-  private _name: string;
-  private size: number;
-  constructor(name: string) {
-    this._name = name;
+class ShooterGame extends VideoGame {
+  constructor(name: string, platform: string) {
+    super(name, "Shooter", platform);
   }
-
-  print() {
-    console.log("Name " + this._name, " Size ", this.size);
-  }
-
-  export() {
-    console.log("exporting....");
+  play(): void {
+    console.log("Boom Boom");
   }
 }
 
-const book = new Book(
-  "The Great Gatsby",
-  "F. Scott Fitzgerald"
-);
-const magazine = new Magazine("Time Magazine");
+const mario = new ArcadeGame("Mario", "Gameboy");
+const callOfDuty = new ShooterGame("Call of duty", "PC");
+
+mario.play();
+mario.displayInfo();
