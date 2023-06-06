@@ -15,8 +15,8 @@ class Admin extends User {
     this._name = n;
   }
 }
-
 const user = new User("Codiku");
-// user.name = "azeazea";
-const adminUser = new Admin("Robin");
-adminUser.name = "Rob";
+user.name = "azeaze";
+
+const admin = new Admin("Robin");
+admin.name = "azeaze";
