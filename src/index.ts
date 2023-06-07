@@ -25,7 +25,7 @@ const h4: Hero = {
 
 const heroes = [h1, h2, h3, h4];
 
-class List<X> {
+class SmartArray<X> {
   private _array: X[] = [];
 
   constructor(_array: X[]) {
@@ -49,8 +49,8 @@ class List<X> {
   }
 }
 
-const heroList = new List<Hero>(heroes);
+const heroSmartArray = new SmartArray<Hero>(heroes);
 
-heroList.shuffle();
+heroSmartArray.shuffle();
 
-console.log(heroList);
+console.log(heroSmartArray);
