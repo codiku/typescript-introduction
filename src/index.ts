@@ -1,42 +1,39 @@
-abstract class VideoGame {
-  protected name: string;
-  protected genre: string;
-  protected platform: string;
+interface Hero {
+  name: string;
+  superPower: string;
+}
+const h1: Hero = {
+  name: "The flash",
+  superPower: "Run super fast",
+};
 
-  constructor(name: string, genre: string, platform: string) {
-    this.name = name;
-    this.genre = genre;
-    this.platform = platform;
-  }
+const h2: Hero = {
+  name: "The Hulk",
+  superPower: "Super strong",
+};
 
-  abstract play(): void;
+const h3: Hero = {
+  name: "Batman",
+  superPower: "Is rich",
+};
 
-  displayInfo() {
-    console.log(this.name, this.genre, this.platform);
-  }
+const h4: Hero = {
+  name: "Superman",
+  superPower: "Basically a God",
+};
+
+let heroes = [h1, h2, h3, h4];
+
+function removeLastElement<MyType>(
+  array: MyType[]
+): MyType[] {
+  return array.slice(0, array.length - 1);
 }
 
-class ArcadeGame extends VideoGame {
-  constructor(name: string, platform: string) {
-    super(name, "Arcade", platform);
-  }
+const reversedHeroes = removeLastElement(heroes);
 
-  play(): void {
-    console.log("Jump jump");
-  }
-}
+console.log("reversedHeroes", reversedHeroes);
 
-class ShooterGame extends VideoGame {
-  constructor(name: string, platform: string) {
-    super(name, "Shooter", platform);
-  }
-  play(): void {
-    console.log("Boom Boom");
-  }
-}
+const reversedNumbers = removeLastElement<number>([1, 2, 3]);
 
-const mario = new ArcadeGame("Mario", "Gameboy");
-const callOfDuty = new ShooterGame("Call of duty", "PC");
-
-mario.play();
-mario.displayInfo();
+console.log("reversedNumbers", reversedNumbers);
