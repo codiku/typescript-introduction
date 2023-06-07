@@ -1,8 +1,10 @@
 abstract class Spell {
-  protected _name: string;
+  private _name: string;
+
   constructor(name: string) {
     this._name = name;
   }
+
   get name() {
     return this._name;
   }
@@ -10,20 +12,15 @@ abstract class Spell {
   abstract cast(): void;
 }
 
-type SpellName<S extends Spell> = S extends FireSpell
-  ? FireSpellName
-  : S extends FrostSpell
-  ? FrostSpellName
-  : never;
+enum FireSpellName {
+  FireBolt = "Fire Bolt",
+  FireWall = "Fire Wall",
+  BigBang = "Big Bang",
+}
 
 enum FrostSpellName {
-  FrostBolt = "Frost bolt",
+  FrostBolt = "Frost Bolt",
   Blizzard = "Blizzard",
-}
-enum FireSpellName {
-  FireBolt = "Fire bolt",
-  FireWall = "Fire wall",
-  BigBang = "Big Bang",
 }
 
 class FireSpell extends Spell {
@@ -31,73 +28,62 @@ class FireSpell extends Spell {
   constructor(name: FireSpellName) {
     super(name);
   }
+  cast() {
+    console.log(
+      this.name,
+      ` - Boom you are burning the enemy ! It took ${this.burningDamage} damages`
+    );
+  }
+}
+
+class FrostSpell extends Spell {
+  readonly slowingRate = 0.5;
+
+  constructor(name: FrostSpellName) {
+    super(name);
+  }
 
   cast() {
     console.log(
       this.name,
-      " / Boom, your are burn the enemy, he took " +
-        this.burningDamage +
-        " damage"
-    );
-  }
-}
-class FrostSpell extends Spell {
-  readonly slowingRate = 0.5;
-  constructor(name: FrostSpellName) {
-    super(name);
-  }
-  cast() {
-    console.log(
-      this.name,
-      " : Brrr, your are freezing and slowed by " +
-        this.slowingRate
+      ` - Brrr you are freezing the enemy,  it's slowed by ${this.slowingRate}`
     );
   }
 }
 
 class Wizard<S extends Spell> {
-  private spellBook: S[];
-  constructor(initialSpells: S[]) {
-    this.spellBook = initialSpells;
+  private spellBook: S[] = [];
+
+  constructor(spellBook: S[]) {
+    this.spellBook = spellBook;
   }
-  castSpellFromBook(name: SpellName<S>) {
-    const spell = this.spellBook.find(
-      (s: S) => s.name === name
-    );
-    if (spell) {
-      spell.cast();
-    } else {
-      throw new Error("You don't have this spell !");
-    }
-  }
+
   castAllAtOnce() {
     this.spellBook.forEach((spell: S) => {
       spell.cast();
     });
   }
-}
 
+  castFromSpellBook(name: string) {
+    const spell = this.spellBook.find(
+      (spell) => spell.name == name
+    );
+    if (spell) {
+      spell.cast();
+    } else {
+      throw new Error(
+        "You don't have this spell in your spell book !"
+      );
+    }
+  }
+}
 const fireSpells: FireSpell[] = [
   new FireSpell(FireSpellName.FireBolt),
-  new FireSpell(FireSpellName.FireWall),
 ];
+
 const frostSpells: FrostSpell[] = [
-  new FrostSpell(FrostSpellName.FrostBolt),
   new FrostSpell(FrostSpellName.Blizzard),
 ];
+const wizard = new Wizard(frostSpells);
 
-// Throw an error
-//const noobFrostWizard = new Wizard<FireSpell>(frostSpells);
-const fireWizard = new Wizard<FireSpell>(fireSpells);
-const frostWizard = new Wizard<FrostSpell>(frostSpells);
-
-fireWizard.castAllAtOnce();
-try {
-  fireWizard.castSpellFromBook(FireSpellName.BigBang);
-} catch (err) {
-  console.log("Error ! ", (err as Error).message);
-}
-
-frostWizard.castAllAtOnce();
-
-frostWizard.castSpellFromBook(FrostSpellName.Blizzard);
+wizard.castFromSpellBook("azezazeza");
