@@ -1,60 +1,103 @@
-interface Hero {
-  name: string;
-  superPower: string;
+abstract class Spell {
+  protected _name: string;
+  constructor(name: string) {
+    this._name = name;
+  }
+  get name() {
+    return this._name;
+  }
+
+  abstract cast(): void;
 }
 
-const h1: Hero = {
-  name: "The flash",
-  superPower: "Run super fast",
-};
+type SpellName<S extends Spell> = S extends FireSpell
+  ? FireSpellName
+  : S extends FrostSpell
+  ? FrostSpellName
+  : never;
 
-const h2: Hero = {
-  name: "The Hulk",
-  superPower: "Super strong",
-};
+enum FrostSpellName {
+  FrostBolt = "Frost bolt",
+  Blizzard = "Blizzard",
+}
+enum FireSpellName {
+  FireBolt = "Fire bolt",
+  FireWall = "Fire wall",
+  BigBang = "Big Bang",
+}
 
-const h3: Hero = {
-  name: "Batman",
-  superPower: "Is rich",
-};
-
-const h4: Hero = {
-  name: "Superman",
-  superPower: "Basically a God",
-};
-
-const heroes = [h1, h2, h3, h4];
-
-class SmartArray<T> {
-  private array: T[] = [];
-  constructor(array: T[]) {
-    this.array = array;
-  }
-  get values() {
-    return this.array;
+class FireSpell extends Spell {
+  readonly burningDamage = 20;
+  constructor(name: FireSpellName) {
+    super(name);
   }
 
-  shuffle(): T[] {
-    return this.array.sort(() => Math.random() - 0.5);
+  cast() {
+    console.log(
+      this.name,
+      " / Boom, your are burn the enemy, he took " +
+        this.burningDamage +
+        " damage"
+    );
   }
-
-  push(element: T): void {
-    this.array.push(element);
+}
+class FrostSpell extends Spell {
+  readonly slowingRate = 0.5;
+  constructor(name: FrostSpellName) {
+    super(name);
   }
-
-  removeLast(): T[] {
-    this.array.slice(0, this.array.length - 1);
-    return this.array;
+  cast() {
+    console.log(
+      this.name,
+      " : Brrr, your are freezing and slowed by " +
+        this.slowingRate
+    );
   }
 }
 
-const heroSmartArray = new SmartArray<Hero>(heroes);
+class Wizard<S extends Spell> {
+  private spellBook: S[];
+  constructor(initialSpells: S[]) {
+    this.spellBook = initialSpells;
+  }
+  castSpellFromBook(name: SpellName<S>) {
+    const spell = this.spellBook.find(
+      (s: S) => s.name === name
+    );
+    if (spell) {
+      spell.cast();
+    } else {
+      throw new Error("You don't have this spell !");
+    }
+  }
+  castAllAtOnce() {
+    this.spellBook.forEach((spell: S) => {
+      spell.cast();
+    });
+  }
+}
 
-const shuffled = heroSmartArray.shuffle();
+const fireSpells: FireSpell[] = [
+  new FireSpell(FireSpellName.FireBolt),
+  new FireSpell(FireSpellName.FireWall),
+];
+const frostSpells: FrostSpell[] = [
+  new FrostSpell(FrostSpellName.FrostBolt),
+  new FrostSpell(FrostSpellName.Blizzard),
+];
 
-console.log(shuffled);
+// Throw an error
+//const noobFrostWizard = new Wizard<FireSpell>(frostSpells);
+const fireWizard = new Wizard<FireSpell>(fireSpells);
+const frostWizard = new Wizard<FrostSpell>(frostSpells);
 
-heroSmartArray.push({
-  name: "WonderWoman",
-  superPower: "fly",
-});
+fireWizard.castAllAtOnce();
+try {
+  fireWizard.castSpellFromBook(FireSpellName.BigBang);
+} catch (err) {
+  console.log("Error ! ", (err as Error).message);
+}
+
+frostWizard.castAllAtOnce();
+
+frostWizard.castSpellFromBook(FrostSpellName.Blizzard);
