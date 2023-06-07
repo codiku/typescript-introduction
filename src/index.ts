@@ -25,13 +25,7 @@ const h4: Hero = {
 
 const heroes = [h1, h2, h3, h4];
 
-interface SmartArray<T> {
-  shuffle: () => T[];
-  push: (newElement: T) => T[];
-  removeLast: () => T[];
-}
-
-class List<X> implements SmartArray<X> {
+class List<X> {
   private _array: X[] = [];
 
   constructor(_array: X[]) {
