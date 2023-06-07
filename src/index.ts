@@ -25,32 +25,36 @@ const h4: Hero = {
 
 const heroes = [h1, h2, h3, h4];
 
-class SmartArray<X> {
-  private _array: X[] = [];
-
-  constructor(_array: X[]) {
-    this._array = _array;
+class SmartArray<T> {
+  private array: T[] = [];
+  constructor(array: T[]) {
+    this.array = array;
   }
-
   get values() {
-    return this._array;
+    return this.array;
   }
 
-  shuffle(): X[] {
-    return this._array.sort(() => Math.random() - 0.5);
+  shuffle(): T[] {
+    return this.array.sort(() => Math.random() - 0.5);
   }
-  push(newElement: X): X[] {
-    this._array.push(newElement);
-    return this._array;
+
+  push(element: T): void {
+    this.array.push(element);
   }
-  removeLast(): X[] {
-    this._array.splice(0, this._array.length - 1);
-    return this._array;
+
+  removeLast(): T[] {
+    this.array.slice(0, this.array.length - 1);
+    return this.array;
   }
 }
 
 const heroSmartArray = new SmartArray<Hero>(heroes);
 
-heroSmartArray.shuffle();
+const shuffled = heroSmartArray.shuffle();
 
-console.log(heroSmartArray);
+console.log(shuffled);
+
+heroSmartArray.push({
+  name: "WonderWoman",
+  superPower: "fly",
+});
