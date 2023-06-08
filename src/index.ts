@@ -79,11 +79,24 @@ class Wizard<S extends Spell> {
 }
 const fireSpells: FireSpell[] = [
   new FireSpell(FireSpellName.FireBolt),
+  new FireSpell(FireSpellName.FireWall),
 ];
 
 const frostSpells: FrostSpell[] = [
+  new FrostSpell(FrostSpellName.FrostBolt),
   new FrostSpell(FrostSpellName.Blizzard),
 ];
-const wizard = new Wizard(frostSpells);
+const fireWizard = new Wizard(fireSpells);
+const frostWizard = new Wizard(frostSpells);
 
-wizard.castFromSpellBook("azezazeza");
+fireWizard.castAllAtOnce();
+
+try {
+  fireWizard.castFromSpellBook(FireSpellName.BigBang);
+} catch (err: unknown) {
+  console.log("Error : ", (err as Error).message);
+}
+
+frostWizard.castAllAtOnce();
+
+frostWizard.castFromSpellBook(FrostSpellName.Blizzard);
