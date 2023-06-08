@@ -51,6 +51,10 @@ class FrostSpell extends Spell {
   }
 }
 
+type SpellName<S> = S extends FireSpell
+  ? FireSpellName
+  : FrostSpellName;
+
 class Wizard<S extends Spell> {
   private spellBook: S[] = [];
 
@@ -64,7 +68,7 @@ class Wizard<S extends Spell> {
     });
   }
 
-  castFromSpellBook(name: string) {
+  castFromSpellBook(name: SpellName<S>) {
     const spell = this.spellBook.find(
       (spell) => spell.name == name
     );
@@ -77,26 +81,12 @@ class Wizard<S extends Spell> {
     }
   }
 }
-const fireSpells: FireSpell[] = [
-  new FireSpell(FireSpellName.FireBolt),
-  new FireSpell(FireSpellName.FireWall),
-];
 
 const frostSpells: FrostSpell[] = [
   new FrostSpell(FrostSpellName.FrostBolt),
   new FrostSpell(FrostSpellName.Blizzard),
 ];
-const fireWizard = new Wizard(fireSpells);
+
 const frostWizard = new Wizard(frostSpells);
 
-fireWizard.castAllAtOnce();
-
-try {
-  fireWizard.castFromSpellBook(FireSpellName.BigBang);
-} catch (err: unknown) {
-  console.log("Error : ", (err as Error).message);
-}
-
-frostWizard.castAllAtOnce();
-
-frostWizard.castFromSpellBook(FrostSpellName.Blizzard);
+frostWizard.castFromSpellBook(FireSpellName.BigBang);
