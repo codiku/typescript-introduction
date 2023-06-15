@@ -28,8 +28,9 @@ class Developer {
   }
 }
 const codiku = new Developer("Codiku", "Typescript");
-codiku.getSomeVacations(15, "Miami");
-codiku.getName();
+const days = codiku.getSomeVacations(15, "Miami");
+console.log(days);
+//codiku.getName();
 
 function methodLogger(
   target: any,
@@ -47,6 +48,7 @@ function methodLogger(
       ". The result is : ",
       result
     );
+    return result;
   };
-  return;
+  return descriptor;
 }
