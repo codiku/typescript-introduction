@@ -4,7 +4,6 @@ type ProgrammingLanguage =
   | "C++"
   | "Python";
 
-// @constructorLogger
 class Developer {
   private name: string;
   private language: ProgrammingLanguage;
@@ -33,13 +32,7 @@ const codiku = new Developer("Codiku", "Typescript");
 codiku.getInfo();
 const days = codiku.getSomeVacations(15, "Miami");
 codiku.getName();
-// Class decorator
-function constructorLogger(constructor: Function) {
-  console.log(
-    "This is the constructor ",
-    constructor.toString()
-  );
-}
+
 // Method logger
 function methodLogger(
   target: any,
